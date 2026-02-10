@@ -16,7 +16,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "mvn clean package -Dmaven.test.skip=true"
+                // On ajoute dir('nom-du-dossier') pour entrer dedans
+                dir('student-management') {
+                    sh "mvn clean package -Dmaven.test.skip=true"
+                }
             }
         }
     }

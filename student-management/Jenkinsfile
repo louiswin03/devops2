@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    tools {
+        maven "M2_HOME"
+        jdk "JAVA_HOME"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // On récupère le code de ton dépôt
+                git branch: 'main', 
+                    url: 'https://github.com/louiswin03/devops2.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // C'est ici que ça se joue : on rentre dans le dossier student-management
+                // car c'est là qu'est ton fichier pom.xml
+                dir('student-management') {
+                    sh "mvn clean package -Dmaven.test.skip=true"
+                }
+            }
+        }
+    }
+}
